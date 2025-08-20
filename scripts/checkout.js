@@ -1,16 +1,24 @@
-import { cart, removeFromCart } from '../data/cart.js';
+/* THERE ARE TWO MAIN TYPES OF EXPORTS */
+// THE EXPORT TYPE BELOW WITH THE CURLY BRACES IS KNOWN AS THE NAMED EXPORT;
+import { cart, removeFromCart, updateDeliveryOption} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
+// THE EXPORT TYPE BELOW WITHOUT CURLY BRACES IS KNOWN AS A DEFAULT EXPORT;
+// WE USED THE DEFAULT EXPORT BECAUSE WE WANT TO ONLY IMPORT ONE THING FROM DAYJS;
+/* THE FUNCTION BELOW IS KNOWN AS AN EXTERNAL LIBRARY WHICH I USED TO MAKE MY WORK MORE DYNAMIC; IT HELPS IN GETTING REAL LIFE; */
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deliveryOptions } from '../data/deliveryOptions.js';
 hello();
 
+/* THE DAYJS LIBRARY IS AN EXTERNAL LIBRARY USED IN JAVASCRIPT IN ORDER TO GET REAL LIFE DATES, AND IT MAKES DEVELOPERS WORK EASY AND NEAT; INSTEAD OF WRITING A NEW CODE TO GET REAL DATES, I JUST USED THE DAYJS EXTERNAL LIBRARY */
 const today = dayjs();
 const deliveryDate = today.add(7, 'days');
 console.log(deliveryDate.format('dddd, MMMM, D'));
 let cartSummaryHTML = '';
 
+/* THE CODE BELOW IS KNOW AS NORMALIZING CODE
+IN NORMALIZING CODE, I USE THE PRODUCTID TO GET MORE INFORMATIONS ABOUT THE PRODUCT, WHICH I LATER SUBSTITUTED WHEN GENERATING MY HTML */
 cart.forEach((cartItem) => {
   const productId = cartItem.productId;
   let matchingProduct;
@@ -88,9 +96,10 @@ function deliveryOptionsHTML (matchingProduct, cartItem) {
     : `${formatCurrency(deliveryOption.priceCents)} -`;
 
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
+    /* I USED A TERNARY OPERATOR IN MY HTML TO KNOW THE PARTICULAR OPTION TO BE CHECKED USING THE ID OF THE CART, AND THE DELIVERYOPTION ID */
 
    html += `
-        <div class="delivery-option">
+        <div class="delivery-option js-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}">
           <input type="radio"
           ${isChecked ? 'checked' : ''}
             class="delivery-option-input"
@@ -120,3 +129,11 @@ document.querySelectorAll('.js-delete-link')
       container.remove();
     });
   });
+
+  document.querySelectorAll('.js-delivery-option')
+    .forEach((element) => {
+      element.addEventListener('click', () => {
+        const { productId, deliveryOptionId} = element.dataset;
+        updateDeliveryOption(productId, deliveryOptionId);
+      })
+    });

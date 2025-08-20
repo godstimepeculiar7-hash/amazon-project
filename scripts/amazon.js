@@ -73,8 +73,11 @@ function updateCartQuantity () {
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
+      /* THE BUTTON.DATASET IS USED TO RETRIEVE THE DATA SAVED IN THE DATA- ATTRIBUTE */
       const { productId } = button.dataset;
+      // THE CODE BELOW ADDS A PRODUCT TO THE CART
       addToCart(productId);
+      // THE CODE BELOW UPDATES THE CART QUANTITY IMMEDIATELY A PRODUCT IS ADDED TO THE CART
       updateCartQuantity();
     });
   });
