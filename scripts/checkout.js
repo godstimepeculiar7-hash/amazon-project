@@ -15,6 +15,8 @@ hello();
 const today = dayjs();
 const deliveryDate = today.add(7, 'days');
 console.log(deliveryDate.format('dddd, MMMM, D'));
+
+function renderOrderSummary () {
 let cartSummaryHTML = '';
 
 /* THE CODE BELOW IS KNOW AS NORMALIZING CODE
@@ -88,6 +90,7 @@ function deliveryOptionsHTML (matchingProduct, cartItem) {
   let html = '';
   deliveryOptions.forEach((deliveryOption) => {
     const today = dayjs();
+    console.log(deliveryOption.id)
     const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
     const dateString = deliveryDate.format('dddd, MMMM, D');
 
@@ -135,5 +138,11 @@ document.querySelectorAll('.js-delete-link')
       element.addEventListener('click', () => {
         const { productId, deliveryOptionId} = element.dataset;
         updateDeliveryOption(productId, deliveryOptionId);
+        renderOrderSummary();
+        /* I USED RECURSION ABOVE IN OTHER FOR THE PAGE TO UPDATE
+        RECURSION IS DEFINED WHEN A FUNCTION CALL IT SELF, OR WHEN A FUNCTIO RERUN IT SELF */
       })
     });
+  }
+
+  renderOrderSummary();
