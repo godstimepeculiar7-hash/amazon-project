@@ -1,14 +1,14 @@
 /* THERE ARE TWO MAIN TYPES OF EXPORTS */
 // THE EXPORT TYPE BELOW WITH THE CURLY BRACES IS KNOWN AS THE NAMED EXPORT;
 import { cart, removeFromCart, updateDeliveryOption} from '../../data/cart.js';
-import { products } from '../../data/products.js';
+import { products, getProduct} from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 // THE EXPORT TYPE BELOW WITHOUT CURLY BRACES IS KNOWN AS A DEFAULT EXPORT;
 // WE USED THE DEFAULT EXPORT BECAUSE WE WANT TO ONLY IMPORT ONE THING FROM DAYJS;
 /* THE FUNCTION BELOW IS KNOWN AS AN EXTERNAL LIBRARY WHICH I USED TO MAKE MY WORK MORE DYNAMIC; IT HELPS IN GETTING REAL LIFE; */
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deliveryOptions } from '../../data/deliveryOptions.js';
+import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 hello();
 
 /* THE DAYJS LIBRARY IS AN EXTERNAL LIBRARY USED IN JAVASCRIPT IN ORDER TO GET REAL LIFE DATES, AND IT MAKES DEVELOPERS WORK EASY AND NEAT; INSTEAD OF WRITING A NEW CODE TO GET REAL DATES, I JUST USED THE DAYJS EXTERNAL LIBRARY */
@@ -23,23 +23,13 @@ let cartSummaryHTML = '';
 IN NORMALIZING CODE, I USE THE PRODUCTID TO GET MORE INFORMATIONS ABOUT THE PRODUCT, WHICH I LATER SUBSTITUTED WHEN GENERATING MY HTML */
 cart.forEach((cartItem) => {
   const productId = cartItem.productId;
-  let matchingProduct;
 
-  products.forEach((product) => {
-    if (productId === product.id) {
-      matchingProduct = product;
-    } 
-  });
+  const matchingProduct = getProduct(productId)
 
   const deliveryOptionId = cartItem.deliveryOptionId;
 
-  let deliveryOption;
-
-  deliveryOptions.forEach((option) => {
-    if (deliveryOptionId === option.id) {
-      deliveryOption = option
-    }
-  });
+  const  deliveryOption = getDeliveryOption(deliveryOptionId)
+  
 
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
@@ -89,8 +79,7 @@ cart.forEach((cartItem) => {
 function deliveryOptionsHTML (matchingProduct, cartItem) {
   let html = '';
   deliveryOptions.forEach((deliveryOption) => {
-    const today = dayjs();
-    console.log(deliveryOption.id)
+    const today = dayjs();  
     const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
     const dateString = deliveryDate.format('dddd, MMMM, D');
 
