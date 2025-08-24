@@ -9,12 +9,10 @@ import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 /* THE FUNCTION BELOW IS KNOWN AS AN EXTERNAL LIBRARY WHICH I USED TO MAKE MY WORK MORE DYNAMIC; IT HELPS IN GETTING REAL LIFE; */
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
-hello();
+import { renderPaymentSummary } from './paymentSummary.js';
 
 /* THE DAYJS LIBRARY IS AN EXTERNAL LIBRARY USED IN JAVASCRIPT IN ORDER TO GET REAL LIFE DATES, AND IT MAKES DEVELOPERS WORK EASY AND NEAT; INSTEAD OF WRITING A NEW CODE TO GET REAL DATES, I JUST USED THE DAYJS EXTERNAL LIBRARY */
-const today = dayjs();
-const deliveryDate = today.add(7, 'days');
-console.log(deliveryDate.format('dddd, MMMM, D'));
+
 
 export function renderOrderSummary () {
 let cartSummaryHTML = '';
@@ -29,7 +27,7 @@ cart.forEach((cartItem) => {
   const deliveryOptionId = cartItem.deliveryOptionId;
 
   const  deliveryOption = getDeliveryOption(deliveryOptionId)
-  
+
 
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
@@ -119,6 +117,8 @@ document.querySelectorAll('.js-delete-link')
       removeFromCart(productId);
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
       container.remove();
+
+      renderPaymentSummary();
     });
   });
 
@@ -130,11 +130,10 @@ document.querySelectorAll('.js-delete-link')
         renderOrderSummary();
         /* I USED RECURSION ABOVE IN OTHER FOR THE PAGE TO UPDATE
         RECURSION IS DEFINED WHEN A FUNCTION CALLS IT SELF, OR WHEN A FUNCTIO RERUN IT SELF */
+        renderPaymentSummary();
       })
     });
   }
-
-
 
   /* THE TECHNIQUE USED ABOVE TO UPDATE THE DATA, AND REGENERATE THE HTML IS KNOWN AS THE MVC PATTERN
   MVC STANDS FOR MODEL - VIEW - CONTROLLER. IT IS A POPUPLAR TECHNIQUE IN SOFTWARE ENGINEERING.
