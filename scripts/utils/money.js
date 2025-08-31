@@ -4,4 +4,4 @@ export function formatCurrency (priceCents) {
 
 /* THE CODE BELOW IS AN EXAMPLE OF A DEFAULT EXPORT */
 // THE DEFAULT EXPORT IS USED ONLY WHEN YOU WANT TO EXPORT ONLY ONE THING FROM A FILE
-export default formatCurrency;
+export default formatCurrency; 

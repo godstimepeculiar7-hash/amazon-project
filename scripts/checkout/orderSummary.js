@@ -130,6 +130,7 @@ document.querySelectorAll('.js-delete-link')
         renderOrderSummary();
         /* I USED RECURSION ABOVE IN OTHER FOR THE PAGE TO UPDATE
         RECURSION IS DEFINED WHEN A FUNCTION CALLS IT SELF, OR WHEN A FUNCTIO RERUN IT SELF */
+        
         renderPaymentSummary();
       })
     });
