@@ -1,4 +1,4 @@
-import { addToCart, cart, loadFromStorage, updateDeliveryOption} from "../../data/cart.js";
+import { addToCart, cart, loadFromStorage} from "../../data/cart.js";
 
 describe('test suite: addToCart', () => {
   it('adds an aexisting product to the cart', () => {
@@ -40,3 +40,6 @@ describe('test suite: addToCart', () => {
 
 // FLAKY TEST: A FLAKY TEST IS A TEST THAT SOMETIMES PASSES, AND SOMETIMES FAILS;
 // MOCKS: A MOCK HELPS US REPLACE A METHOD WITH A FAKE VERSION; IT ALSO HELPS US AVOID FLAKY TESTS;
+
+// UNIT TEST: UNIT TEST MEANS TESTING JUST 1 PIECE OF THE CODE
+// INTEGRATION TEST: INTEGRATION TEST SIMPLY MEANS TEST A MORE COMPLICATED CODE, RATHER THAN JUST ONE PIECE
