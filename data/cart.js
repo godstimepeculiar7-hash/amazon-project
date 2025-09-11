@@ -1,5 +1,10 @@
 /* I SAVED MY CART TO LOCAL STORAGE SO ANY TIME I REFRESH, MY CART WONT BE RESET EVERYTIME */
-export let cart = JSON.parse(localStorage.getItem('cart'));
+export let cart;
+
+loadFromStorage();
+
+export function loadFromStorage () {
+cart = JSON.parse(localStorage.getItem('cart'));
 /* AT FIRST, WHEN THE CART IS BEING SAVED TO LOCAL STORAGE, NOTING IS BEING SAVED IN LOCAL STORAGE WHICH MEANS THE VALUE OF THE CART IS BEING FALSY
 !CART FLIPS THE CART TO A TRUTHY VALUE WHICH THEN RUNS THE CODE */
 if(!cart) {
@@ -13,6 +18,7 @@ if(!cart) {
     deliveryOptionId: '2'
   }];
 }
+};
 
 
 
