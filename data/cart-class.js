@@ -1,15 +1,16 @@
 class Cart {
   /* I SAVED MY CART TO LOCAL STORAGE SO ANY TIME I REFRESH, MY CART WONT BE RESET EVERYTIME */
   cartItems;
-  localStorageKey;
+// THE PROPERTY BELOW IS KNOWN AS A PRIVATE PROPERTY
+  #localStorageKey;
 
   constructor (localStorageKey) {
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage();
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage();
   }
 
-  loadFromStorage() {
-  this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromStorage() {
+  this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
   /* AT FIRST, WHEN THE CART IS BEING SAVED TO LOCAL STORAGE, NOTING IS BEING SAVED IN LOCAL STORAGE WHICH MEANS THE VALUE OF THE CART IS BEING FALSY
   !CART FLIPS THE CART TO A TRUTHY VALUE WHICH THEN RUNS THE CODE */
   if(!this.cartItems) {
@@ -26,7 +27,7 @@ class Cart {
   }
 
   saveToStorage () {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   /* THE FUNCTION BELOW ADDS A PRODUCT TO THE CART; */
